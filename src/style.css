@@ -1,0 +1,49 @@
+body {
+  background-color: rgb(207, 206, 206);
+}
+
+input {
+  border: none;
+  margin-right: 20px;
+}
+
+.input-data input {
+  width: 100%;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
+}
+
+input::placeholder {
+  font-style: italic;
+  font-size: 16px;
+}
+
+button {
+  width: 100%;
+  height: 30px;
+  border: none;
+  background-color: rgb(38, 173, 56);
+}
+
+.list-container {
+  background-color: white;
+  width: 40rem;
+}
+
+.list-container ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-container ul li {
+  border-bottom: 1px solid rgb(165, 165, 165);
+  padding: 10px;
+}
+
+.list-dispo {
+  display: flex;
+}
