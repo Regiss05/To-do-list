@@ -11,7 +11,8 @@ input {
   width: 100%;
 }
 
-textarea:focus, input:focus{
+textarea:focus,
+input:focus {
   outline: none;
 }
 
