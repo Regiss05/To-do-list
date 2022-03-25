@@ -1,76 +1,77 @@
 body {
-    background-color: rgb(216, 225, 228);
-    font-size: 20px;
+  background-color: rgb(216, 225, 228);
+  font-size: 20px;
 }
 
 .app-body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .app {
-    width: 40rem;
-    background-color: #fff;
-    border-radius: 10px;
+  width: 40rem;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 .pd-title {
-    padding: 15px;
+  padding: 15px;
 }
 
 .bordertopbottom {
-    border-top: 1px solid rgb(0, 0, 0);
-    border-bottom: 1px solid rgb(0, 0, 0);
+  border-top: 1px solid rgb(0, 0, 0);
+  border-bottom: 1px solid rgb(0, 0, 0);
 }
 
 .typeholder {
-    width: 100%;
+  width: 100%;
 }
 
 .typeholder:focus {
-    outline: none;
+  outline: none;
 }
 
 #myCheck {
-    margin: 0 20px;
+  margin: 0 20px;
 }
 
 .btn-delete {
-    background-color: rgb(179, 29, 29);
-    width: 100%;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    color: white;
-    margin-top: 20px;
+  background-color: rgb(179, 29, 29);
+  width: 100%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: white;
+  margin-top: 20px;
 }
 
 .box-chg {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .checkBox {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .buttons-list {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .btn {
-    font-size: 15px;
-    padding: 5px;
+  font-size: 15px;
+  padding: 5px;
 }
+
 .btn:hover {
-   background-color: rgb(179, 29, 29);
-   color: white;
+  background-color: rgb(179, 29, 29);
+  color: white;
 }
 
 .edit-btn {
-    display: none;
+  display: none;
 }
