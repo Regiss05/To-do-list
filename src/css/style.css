@@ -1,0 +1,382 @@
+:root {
+  --base-font: 1.6rem;
+  --fw-normal: 400;
+  --fw-bold: 700;
+  --bg-new: #f3f3f3;
+  --bg-white-new: #fff;
+  --shadow-new: 0 0 10px rgb(0 0 0 / 30%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  position: relative;
+  background-color: var(--bg-new);
+  padding-top: 100px;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  user-select: none;
+}
+
+body {
+  font: var(--fw-normal) var(--base-font) var(--ff-sans);
+  background-color: var(--bg-white-new);
+  box-shadow: var(--shadow-new);
+  padding-top: 8rem;
+  width: 54rem;
+  margin: auto;
+}
+
+input,
+button {
+  font: inherit;
+  border: 0;
+  background: transparent;
+}
+
+button {
+  display: flex;
+  user-select: none;
+}
+
+input:focus,
+button:focus {
+  outline: 0;
+}
+
+label {
+  display: none;
+}
+
+.card {
+  background-color: var(--bg-white-new);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.9rem 2rem;
+  gap: 2rem;
+  border-bottom: 1px solid rgb(173, 173, 173);
+}
+
+header.card {
+  background: transparent;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+header.card h1 {
+  font-weight: 700;
+  font-size: 25px;
+  padding-bottom: 20px;
+}
+
+.clear {
+  display: none;
+}
+
+.card .clear {
+  font-size: 20px;
+  color: grey;
+  float: right;
+  width: 25px;
+  cursor: pointer;
+}
+
+.card .edit-btn {
+  font-size: 20px;
+  color: grey;
+  float: right;
+  width: 25px;
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
+
+.card .cb-container {
+  width: 2rem;
+  height: 2rem;
+  border: 0.1rem solid grey;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.card .cb-container .cb-input {
+  transform: scale(1.8);
+  opacity: 1;
+}
+
+.card .cb-container .check {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.add .cb-container {
+  transition: background 0.3s ease;
+}
+
+.add .cb-container #add-btn {
+  color: var(--clr-gb-2);
+  font-size: var(--base-font);
+  transition: color 0.3s ease;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.add .cb-container:hover {
+  background: var(--clr-blue);
+}
+
+.add .cb-container:active {
+  transform: scale(0.95);
+}
+
+.add .cb-container:hover #add-btn {
+  color: var(--clr-white);
+}
+
+.add .txt-container {
+  flex: 1;
+}
+
+.add .txt-container .txt-input {
+  width: 100%;
+  padding: 0.7rem 0;
+  font-size: 20px;
+}
+
+.add .txt-container .txt-input::placeholder {
+  color: var(--clr-gb-5);
+  font-weight: var(--fw-normal);
+  font-style: italic;
+}
+
+.editInput {
+  width: 100%;
+  padding: 0.7rem 0;
+  font-size: 18px;
+  display: none;
+}
+
+.editInputShow {
+  display: flex;
+  justify-content: center;
+}
+
+.refresh {
+  font-size: 2em;
+  color: grey;
+}
+
+.todos > * {
+  transition: 0.4s ease;
+}
+
+.todos .card[draggable] {
+  cursor: move;
+}
+
+.todos .card:first-child {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.todos > * + * {
+  border-top: 0.2rem solid var(--clr-gb-6);
+}
+
+.item {
+  flex: 1;
+  font-size: 18px;
+}
+
+body.light .todos {
+  box-shadow: 0 0 2rem 0.4rem var(--clr-box-shadow);
+}
+
+.todos .card.checked .item {
+  text-decoration: line-through;
+  color: var(--clr-gb-3);
+  text-decoration-color: var(--clr-gb-3);
+  font-size: 18px;
+}
+
+.clearShow {
+  display: flex;
+  cursor: pointer;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  font-size: 1.5em;
+}
+
+.todos .card:hover .clear {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.stat {
+  border-top: 0.2rem solid var(--clr-gb-6);
+  font-size: calc(var(--base-font) - 0.3rem);
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: var(--bg-new);
+}
+
+.stat * {
+  color: var(--clr-gb-4);
+}
+
+body.light .stat {
+  box-shadow: 0 1rem 2rem -0.4rem var(--clr-box-shadow);
+}
+
+.stat .corner button {
+  cursor: pointer;
+}
+
+.stat .corner:last-child {
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.stat .corner button:hover {
+  color: var(--clr-primary);
+  text-decoration: underline;
+}
+
+.stat .filter {
+  display: flex;
+  justify-content: space-between;
+  font-weight: var(--fw-bold);
+}
+
+.stat .filter *:hover {
+  color: var(--clr-primary);
+}
+
+.stat .filter .on {
+  color: var(--clr-blue);
+}
+
+#clear-completed {
+  font-size: 18px;
+}
+
+footer {
+  margin: 4rem 0;
+  text-align: center;
+  color: var(--clr-gb-5);
+}
+
+.todos.active .card.checked,
+.todos.completed .card {
+  transition: 0.4s;
+  opacity: 0;
+  padding: 0;
+  border: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.todos.completed .card.checked {
+  opacity: 1;
+  padding: 1.9rem 2rem;
+  height: auto;
+  display: flex;
+  pointer-events: all;
+  transition: 0.4s;
+}
+
+.todos.completed > .card.checked ~ .card.checked {
+  border-top: 0.2rem solid var(--clr-gb-6);
+}
+
+.todos .card.fall {
+  pointer-events: none;
+  animation: fall 0.2s forwards ease;
+}
+
+@keyframes fall {
+  0% {
+    opacity: 0.5;
+    transform: translateX(20%);
+  }
+
+  50% {
+    transform: translateX(25%) rotateZ(40deg);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translateX(30%) rotateZ(90deg);
+    opacity: 0;
+  }
+}
+
+.todos .card.dragging {
+  opacity: 0.5;
+}
+
+@media (max-width: 599px) {
+  .stat {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5rem 2rem;
+  }
+
+  .stat .filter {
+    grid-row: 2/3;
+    grid-column: 1/3;
+    justify-content: space-around;
+    position: relative;
+  }
+
+  .stat .filter::before {
+    content: '';
+    position: absolute;
+    width: calc(100% + 4rem);
+    height: 1rem;
+    background-color: var(--clr-page-bg);
+    top: -3rem;
+  }
+}
+
+@media (max-width: 340px) {
+  header.card {
+    align-items: center;
+  }
+
+  header.card h1 {
+    font-size: calc(var(--base-font) * 1.5);
+  }
+}
