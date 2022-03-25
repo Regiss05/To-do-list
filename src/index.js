@@ -1,87 +1,239 @@
 /* eslint-disable no-use-before-define */
-import './style.css';
+/* eslint-disable no-unused-expressions */
+/* eslint-disable import/no-unresolved */
+import '@fortawesome/fontawesome-free/js/all.js';
 
-const text = document.getElementById('text');
-const addTaskButton = document.getElementById('add-task-btn');
-const deleteTaskButton = document.getElementById('deleteall-todo-btn');
-const saveTaskButton = document.getElementById('save-todo-btn');
-const listBox = document.getElementById('listBox');
-const saveInd = document.getElementById('saveIndex');
+import('./css/style.css');
 
-let todoArray = [];
-displayTodo();
+document.addEventListener('DOMContentLoaded', main);
 
-text.addEventListener('keyup', (e) => {
-  if (e.key === 'Enter') {
+function main() {
+  addTodo();
+  document.querySelector('.todos').addEventListener('dragover', function (e) {
     e.preventDefault();
-    const todo = localStorage.getItem('todo');
-    if (todo === null) {
-      todoArray = [];
-    } else {
-      todoArray = JSON.parse(todo);
+    if (
+      !e.target.classList.contains('dragging')
+      && e.target.classList.contains('card')
+    ) {
+      const draggingCard = document.querySelector('.dragging');
+      const cards = [...this.querySelectorAll('.card')];
+      const currPos = cards.indexOf(draggingCard);
+      const newPos = cards.indexOf(e.target);
+      if (currPos > newPos) {
+        this.insertBefore(draggingCard, e.target);
+      } else {
+        this.insertBefore(draggingCard, e.target.nextSibling);
+      }
+      const todos = JSON.parse(localStorage.getItem('todos'));
+      const removed = todos.splice(currPos, 1);
+      todos.splice(newPos, 0, removed[0]);
+      localStorage.setItem('todos', JSON.stringify(todos));
     }
-    todoArray.push(text.value);
-    text.value = '';
-    localStorage.setItem('todo', JSON.stringify(todoArray));
-    displayTodo();
-  }
-});
-
-deleteTaskButton.addEventListener('click', () => {
-  const todo = localStorage.getItem('todo');
-  todoArray = JSON.parse(todo);
-  todoArray = [];
-  localStorage.setItem('todo', JSON.stringify(todoArray));
-  displayTodo();
-});
-
-function displayTodo() {
-  const todo = localStorage.getItem('todo');
-  if (todo === null) {
-    todoArray = [];
-  } else {
-    todoArray = JSON.parse(todo);
-  }
-  let htmlCode = '';
-  todoArray.forEach((list, ind) => {
-    htmlCode += `<div class='box-chg'>
-        <div class="checkBox">
-          <input type="checkbox" id="myCheck" onclick="myFunction()" class=""><p class='w-full text-grey-darkest'>${list}</p>
-        </div>
-        <div class="buttons-list">
-        <button onclick='edit(${ind})' class='flex-no-shrink p-2 ml-4 mr-2 border-2 rounded text-white text-grey bg-green-600'>Edit</button>
-        <button onclick='deleteTodo(${ind})' class='deletefunction flex-no-shrink p-2 ml-2 border-2 rounded text-white bg-red-500'>Delete</button>
-        </div>
-   </div>`;
   });
-  listBox.innerHTML = htmlCode;
+
+  document.querySelectorAll('.edit-btn').forEach((edit) => {
+    edit.addEventListener('click', (e) => {
+      if (e.target.classList.contains('editInputShow')) {
+        const card = e.target.parentElement;
+        const input = card.querySelector('.editInput');
+        const item = card.querySelector('.item');
+        const deleteIcon = card.querySelector('.clear');
+        const editBtn = card.querySelector('.edit-btn');
+
+        editBtn.classList.remove('editInputShow');
+        input.classList.add('hide');
+        deleteIcon.classList.add('clearShow');
+        input.classList.add('editInputShow');
+        item.classList.add('hide');
+        editBtn.classList.add('editInputShow');
+        edit.classList.add('hide');
+        edit.classList.remove('editInputShow');
+      }
+    });
+  });
+
+  const add = document.getElementById('add-btn');
+  const txtInput = document.querySelector('.txt-input');
+  add.addEventListener('click', () => {
+    const item = txtInput.value.trim();
+    if (item) {
+      txtInput.value = '';
+      const todos = !localStorage.getItem('todos')
+        ? []
+        : JSON.parse(localStorage.getItem('todos'));
+      const currentTodo = {
+        id: todos.length + 1,
+        item,
+        completed: false,
+      };
+      addTodo([currentTodo]);
+      todos.push(currentTodo);
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+    txtInput.focus();
+  });
+
+  document.querySelectorAll('.editInput').forEach((input) => {
+    input.addEventListener('keydown', (e) => {
+      const item = input.value.trim();
+      if (e.keyCode === 13) {
+        if (item) {
+          const todos = JSON.parse(localStorage.getItem('todos'));
+          const currentTodo = todos.find(
+            (todo) => parseInt(todo.id, 10) === parseInt(input.dataset.id, 10),
+          );
+
+          editTodo(todos.indexOf(currentTodo) + 1, item);
+        }
+      }
+    });
+  });
+
+  txtInput.addEventListener('keydown', (e) => {
+    if (e.keyCode === 13) {
+      add.click();
+    }
+  });
+
+  document.getElementById('clear-completed').addEventListener('click', () => {
+    const deleteIndexes = [];
+    document.querySelectorAll('.card.checked').forEach((card) => {
+      deleteIndexes.push(
+        [...document.querySelectorAll('.todos .card')].indexOf(card),
+      );
+      card.classList.add('fall');
+      card.addEventListener('animationend', () => {
+        setTimeout(() => {
+          card.remove();
+        }, 100);
+      });
+    });
+    removeManyTodo(deleteIndexes);
+  });
 }
 
-function deleteTodo(ind) {
-  const todo = localStorage.getItem('todo');
-  todoArray = JSON.parse(todo);
-  todoArray.splice(ind, 1);
-  localStorage.setItem('todo', JSON.stringify(todoArray));
-  displayTodo();
-}
+const updateIndex = (arr) => {
+  arr.forEach((task, index) => {
+    task.id = index + 1;
+  });
+};
 
-function edit(ind) {
-  saveInd.value = ind;
-  const todo = localStorage.getItem('todo');
-  todoArray = JSON.parse(todo);
-  text.value = todoArray[ind];
-  addTaskButton.style.display = 'none';
-  saveTaskButton.style.display = 'block';
-}
+const stateTodo = (index, completed) => {
+  const todos = JSON.parse(localStorage.getItem('todos'));
+  todos[index].completed = completed;
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
 
-saveTaskButton.addEventListener('click', () => {
-  const todo = localStorage.getItem('todo');
-  todoArray = JSON.parse(todo);
-  const id = saveInd.value;
-  todoArray[id] = text.value;
-  addTaskButton.style.display = 'block';
-  saveTaskButton.style.display = 'none';
-  text.value = '';
-  localStorage.setItem('todo', JSON.stringify(todoArray));
-  displayTodo();
-});
+const removeTodo = (index) => {
+  const todos = JSON.parse(localStorage.getItem('todos'));
+  todos.splice(index, 1);
+  updateIndex(todos);
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+const editTodo = (index, item) => {
+  const todos = JSON.parse(localStorage.getItem('todos'));
+  todos[index].item = item;
+  updateIndex(todos);
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+const removeManyTodo = (indexes) => {
+  let todos = JSON.parse(localStorage.getItem('todos'));
+  todos = todos.filter((todo, index) => !indexes.includes(index));
+  updateIndex(todos);
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
+
+const addTodo = (todos = JSON.parse(localStorage.getItem('todos'))) => {
+  if (!todos) {
+    return [];
+  }
+
+  todos.forEach((todo) => {
+    const card = document.createElement('li');
+    const cbContainer = document.createElement('div');
+    const cbInput = document.createElement('input');
+    const check = document.createElement('span');
+    const item = document.createElement('p');
+    const editInput = document.createElement('input');
+    const button = document.createElement('span');
+    const edit = document.createElement('span');
+    const icon = document.createElement('i');
+    const iconEdit = document.createElement('i');
+    card.classList.add('card');
+    button.classList.add('clear');
+    edit.classList.add('editInputShow');
+    edit.classList.add('edit-btn');
+    cbContainer.classList.add('cb-container');
+    cbInput.classList.add('cb-input');
+    item.classList.add('item');
+    editInput.classList.add('editInput');
+    check.classList.add('check');
+    button.classList.add('clear');
+    icon.classList.add('fa', 'fa-times');
+    iconEdit.classList.add('fas', 'fa-ellipsis-v');
+
+    card.setAttribute('draggable', true);
+    card.setAttribute('data-id', todo.id);
+    cbInput.setAttribute('type', 'checkbox');
+    item.textContent = todo.item;
+
+    editInput.setAttribute('type', 'text');
+    editInput.setAttribute('data-id', todo.id);
+    editInput.setAttribute('value', todo.item);
+    editInput.setAttribute('class', 'editInput');
+    if (todo.completed) {
+      card.classList.add('checked');
+      cbInput.setAttribute('checked', 'checked');
+    }
+
+    card.addEventListener('dragstart', function () {
+      this.classList.add('dragging');
+    });
+    card.addEventListener('dragend', function () {
+      this.classList.remove('dragging');
+    });
+
+    cbInput.addEventListener('click', function () {
+      const correspondingCard = this.parentElement.parentElement;
+      const { checked } = this;
+      stateTodo(
+        [...document.querySelectorAll('.todos .card')].indexOf(
+          correspondingCard,
+        ),
+        checked,
+      );
+      checked
+        ? correspondingCard.classList.add('checked')
+        : correspondingCard.classList.remove('checked');
+    });
+
+    button.addEventListener('click', function () {
+      const correspondingCard = this.parentElement;
+      correspondingCard.classList.add('fall');
+      removeTodo(
+        [...document.querySelectorAll('.todos .card')].indexOf(
+          correspondingCard,
+        ),
+      );
+      correspondingCard.addEventListener('animationend', () => {
+        setTimeout(() => {
+          correspondingCard.remove();
+        }, 100);
+      });
+    });
+
+    button.appendChild(icon);
+    edit.appendChild(iconEdit);
+    cbContainer.appendChild(cbInput);
+    cbContainer.appendChild(check);
+    card.appendChild(cbContainer);
+    card.appendChild(item);
+    card.appendChild(editInput);
+    card.appendChild(button);
+    card.appendChild(edit);
+    document.querySelector('.todos').appendChild(card);
+  });
+  return todos;
+};
