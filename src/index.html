@@ -2,24 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-do-list</title>
+    <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" /> -->
+    <title>Document</title>
 </head>
 <body>
-    <form class="list-container">
-        <ul>
-            <li>Today's To Do</li>
-            <li class="input-data"><input type="text" placeholder="Add to your list..."></li>
-            <li>
-                <div>
-                    <ul class="list-detail">
-                    </ul>
-                  </div>
-            </li>
-            <li><button type="button">Clear all completed</button></li>
-        </ul>
-    </form>
-
-    <script src="./index.js"></script>
+    <div class="app-body">
+        <div class="app">
+          <div class="">
+            <h1 class="pd-title">
+              Today's To Do
+            </h1>
+            <div class="pd-title">
+              <input class="bordertopbottom typeholder" name="text" id="text" placeholder="Add to your list..." />
+              <input type="hidden" id="saveIndex" />
+              <button type="button" class="p-2 lg:px-4 md:mx-2 text-center border border-solid border-indigo-600 rounded text-white bg-green-600 transition-colors duration-300 mt-1 md:mt-0 md:ml-1" id="add-task-btn">Nothing to save</button>
+              <button type="button" class="p-2 lg:px-4 md:mx-2 text-center border border-solid border-indigo-600 rounded bg-indigo-600 text-white transition-colors duration-300 mt-1 md:mt-0 md:ml-1 edit-btn" id="save-todo-btn">Edit List Name</button>
+            </div>
+          </div>
+          <div id="listBox"></div>
+          <button class="pd-title btn-delete" id="deleteall-todo-btn">Clear all completed</button>
+        </div>
+      </div>
+      <script src="./index.js"></script>
 </body>
 </html>

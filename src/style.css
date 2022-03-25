@@ -1,49 +1,76 @@
 body {
-  background-color: rgb(207, 206, 206);
+    background-color: rgb(216, 225, 228);
+    font-size: 20px;
 }
 
-input {
-  border: none;
-  margin-right: 20px;
+.app-body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.input-data input {
-  width: 100%;
+.app {
+    width: 40rem;
+    background-color: #fff;
+    border-radius: 10px;
 }
 
-textarea:focus,
-input:focus {
-  outline: none;
+.pd-title {
+    padding: 15px;
 }
 
-input::placeholder {
-  font-style: italic;
-  font-size: 16px;
+.bordertopbottom {
+    border-top: 1px solid rgb(0, 0, 0);
+    border-bottom: 1px solid rgb(0, 0, 0);
 }
 
-button {
-  width: 100%;
-  height: 30px;
-  border: none;
-  background-color: rgb(38, 173, 56);
+.typeholder {
+    width: 100%;
 }
 
-.list-container {
-  background-color: white;
-  width: 40rem;
+.typeholder:focus {
+    outline: none;
 }
 
-.list-container ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+#myCheck {
+    margin: 0 20px;
 }
 
-.list-container ul li {
-  border-bottom: 1px solid rgb(165, 165, 165);
-  padding: 10px;
+.btn-delete {
+    background-color: rgb(179, 29, 29);
+    width: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: white;
+    margin-top: 20px;
 }
 
-.list-dispo {
-  display: flex;
+.box-chg {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.checkBox {
+    display: flex;
+    align-items: center;
+}
+
+.buttons-list {
+    margin-right: 20px;
+}
+
+.btn {
+    font-size: 15px;
+    padding: 5px;
+}
+.btn:hover {
+   background-color: rgb(179, 29, 29);
+   color: white;
+}
+
+.edit-btn {
+    display: none;
 }
