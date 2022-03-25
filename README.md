@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Project Name
+# TODO-List
 
 > Todo is a web application that makes it easier for users to organize their chores while working on any project. The board displays all of the activities that need to be done, as well as the ability to delete completed tasks from the board.
 
@@ -30,7 +30,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Setup
 Cloning the project
-> git clone ...............
+> git clone https://github.com/Regiss05/To-do-list.git
 
 Getting packages and debuging with Stylelint
 >npm install --save-dev stylelint@13.x stylelint-scss@3.x stylelint-config-standard@21.x stylelint-csstree-validator@1.x
