@@ -1,6 +1,4 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable import/no-unresolved */
+/* eslint-disable */
 import '@fortawesome/fontawesome-free/js/all.js';
 
 import('./css/style.css');
@@ -126,7 +124,7 @@ const stateTodo = (index, completed) => {
 
 const removeTodo = (index) => {
   const todos = JSON.parse(localStorage.getItem('todos'));
-  todos.splice(index, 1);
+  todos.slice(index, 1);
   updateIndex(todos);
   localStorage.setItem('todos', JSON.stringify(todos));
 };
