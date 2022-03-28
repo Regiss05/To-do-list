@@ -5,6 +5,9 @@
 > Todo is a web application that makes it easier for users to organize their chores while working on any project. The board displays all of the activities that need to be done, as well as the ability to delete completed tasks from the board.
 
 
+### [Live Demo Link](https://regiss05.github.io/To-do-list/)
+
+
 ## Built With
 - Lighthouse (An open-source, automated tool for improving the quality of web pages. It has audits for performance, accessibility, progressive web apps, SEO and more).
 - Webhint (A customizable linting tool that helps you improve your site's accessibility, speed, cross-browser compatibility, and more by checking your code for best practices and common errors).
